@@ -1,0 +1,188 @@
+Validating: .agent/skills
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\app-builder\SKILL.md:4:1 error: Unknown tool 'Agent'. Known tools: Bash, Read, Write, Edit, Grep, Glob, Task, WebFetch, WebSearch, AskUserQuestion, TodoRead, TodoWrite, MultiTool, NotebookEdit, EnterPlanMode, ExitPlanMode, Skill, StatusBarMessageTool, SendMessageTool, TaskOutput. MCP tools must use lowercase mcp__<server>__<tool> format
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\bash-linux\SKILL.md:106:1 error: Windows path separator detected in 'RED='\033[0;31m'; use forward slashes [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\bash-linux\SKILL.md:107:1 error: Windows path separator detected in 'GREEN='\033[0;32m'; use forward slashes [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\bash-linux\SKILL.md:108:1 error: Windows path separator detected in 'NC='\033[0m'; use forward slashes [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\deploying-cost-optimized\SKILL.md:2:1 error: Dangerous skill 'deploying-cost-optimized' must set 'disable-model-invocation: true' to prevent accidental invocation [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\deployment-procedures\SKILL.md:2:1 error: Dangerous skill 'deployment-procedures' must set 'disable-model-invocation: true' to prevent accidental invocation [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\designing-ui\SKILL.md:24:3 error: Broken markdown link: '../../protocols/guidelines/99-visual-verification.md' (file not found: \\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\protocols\guidelines\99-visual-verification.md)
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\designing-ui\SKILL.md:29:3 error: Broken markdown link: '../../protocols/79-vibe-engineering.md' (file not found: \\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\protocols\79-vibe-engineering.md)
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\error-handling\SKILL.md:2:1 error: Skill name 'error-handling-patterns' must match parent directory 'error-handling'
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\managing-version-control\SKILL.md:16:3 error: Broken markdown link: '../../protocols/guidelines/44-micro-commit-protocol.md' (file not found: \\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\protocols\guidelines\44-micro-commit-protocol.md)
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\managing-version-control\SKILL.md:17:3 error: Broken markdown link: '../../protocols/guidelines/42-scrambled-eggs-strategy.md' (file not found: \\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\protocols\guidelines\42-scrambled-eggs-strategy.md)
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\managing-version-control\SKILL.md:18:3 error: Broken markdown link: '../../protocols/guidelines/100-git-worktree-parallelism.md' (file not found: \\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\protocols\guidelines\100-git-worktree-parallelism.md)
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\nextjs-react-expert\SKILL.md:2:1 error: Skill name 'react-best-practices' must match parent directory 'nextjs-react-expert'
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\powershell-windows\SKILL.md:93:22 error: Windows path separator detected in 'Users\User\file.txt'; use forward slashes [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\powershell-windows\SKILL.md:93:18 error: Windows path separator detected in '`C:\Users\User\file.txt`'; use forward slashes [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\skill-creator\SKILL.md:2:1 error: Skill name 'creating-skills' must match parent directory 'skill-creator'
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\skill-creator\SKILL.md:38:56 error: Windows path separator detected in '`\`'; use forward slashes [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\skill-creator\SKILL.md:63:4 error: Windows path separator detected in '\`\`\`markdown'; use forward slashes [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\skill-creator\SKILL.md:88:3 error: Windows path separator detected in '\`\`\`'; use forward slashes [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\web-design-guidelines\SKILL.md:7:20 error: Unclosed XML tag '<file-or-pattern>' [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\api-patterns\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\app-builder\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\app-builder\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\bash-linux\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\brand-identity\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\clean-code\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\clean-code\SKILL.md:5:1 warning: Unknown frontmatter field 'version'
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\clean-code\SKILL.md:6:1 warning: Unknown frontmatter field 'priority'
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\code-review-checklist\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\database-design\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\deploying-cost-optimized\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\deployment-procedures\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\deployment-procedures\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\documentation-templates\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\frontend-design\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\2d-games\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\3d-games\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\game-art\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\game-audio\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\game-design\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\mobile-games\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\multiplayer\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\multiplayer\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\pc-games\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\vr-ar\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\game-development\web-games\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\geo-fundamentals\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\i18n-localization\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\intelligent-routing\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\intelligent-routing\SKILL.md:4:1 warning: Unknown frontmatter field 'version'
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\mcp-builder\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\mobile-design\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\mobile-design\mobile-navigation.md:261:18 warning: Hard-coded OS-specific absolute path path '/home/product/' may cause portability issues
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\mobile-design\mobile-navigation.md:262:18 warning: Hard-coded OS-specific absolute path path '/home/product/' may cause portability issues
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\nextjs-react-expert\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\nodejs-best-practices\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\performance-profiling\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\performance-profiling\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\powershell-windows\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\powershell-windows\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\python-patterns\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\securing-code\red-team-tactics\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\securing-code\vulnerability-scanner\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\securing-code\vulnerability-scanner\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\seo-fundamentals\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\server-management\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\server-management\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\tailwind-patterns\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\testing-patterns\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\testing-patterns\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\ui-ux-pro-max\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\ui-ux-pro-max\templates\platforms\opencode.json:2:0 warning: Unknown config key 'platform' in opencode.json
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\ui-ux-pro-max\templates\platforms\opencode.json:3:0 warning: Unknown config key 'displayName' in opencode.json
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\ui-ux-pro-max\templates\platforms\opencode.json:4:0 warning: Unknown config key 'installType' in opencode.json
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\ui-ux-pro-max\templates\platforms\opencode.json:5:0 warning: Unknown config key 'folderStructure' in opencode.json
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\ui-ux-pro-max\templates\platforms\opencode.json:10:0 warning: Unknown config key 'scriptPath' in opencode.json
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\ui-ux-pro-max\templates\platforms\opencode.json:11:0 warning: Unknown config key 'frontmatter' in opencode.json
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\ui-ux-pro-max\templates\platforms\opencode.json:13:0 warning: Unknown config key 'description' in opencode.json
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\ui-ux-pro-max\templates\platforms\opencode.json:15:0 warning: Unknown config key 'sections' in opencode.json
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\ui-ux-pro-max\templates\platforms\opencode.json:18:0 warning: Unknown config key 'title' in opencode.json
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\ui-ux-pro-max\templates\platforms\opencode.json:20:0 warning: Unknown config key 'skillOrWorkflow' in opencode.json
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\web-design-guidelines\SKILL.md:8:4 warning: Skill content exceeds 500 lines (got 601)
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\webapp-testing\SKILL.md:3:1 warning: Description should include a 'Use when...' trigger phrase [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\webapp-testing\SKILL.md:4:1 warning: Unrestricted Bash access detected. Consider using scoped version for better security. [fixable]
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills:1:0 info: No tool or spec versions pinned. Version-dependent rules will use default assumptions.
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\clean-code\SKILL.md:5:1 info: skill uses client-specific field 'version' which is not part of the universal Agent Skills spec
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\clean-code\SKILL.md:6:1 info: skill uses client-specific field 'priority' which is not part of the universal Agent Skills spec
+
+\\?\C:\Users\Peace\Documents\vscode\Personal Projects\Project Workflows\.agent\skills\intelligent-routing\SKILL.md:4:1 info: skill uses client-specific field 'version' which is not part of the universal Agent Skills spec
+
+------------------------------------------------------------
+Found 20 errors, 66 warnings
+  4 info messages
+  61 issues are automatically fixable
+
+hint: Run with --fix / --fix-safe / --fix-unsafe to apply fixes
