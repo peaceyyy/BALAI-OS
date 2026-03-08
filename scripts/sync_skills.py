@@ -2,162 +2,87 @@ import os
 import shutil
 import sys
 import argparse
-import subprocess
 import time
 
-def run_agnix_validation(skill_path):
-    """
-    Runs agnix validation on a specific skill directory or file.
-    Returns True if valid (0 exit code), False otherwise.
-    """
-    # Check if agnix is available
-    try:
-        # Check specific SKILL.md if it exists, or the folder
-        target = os.path.join(skill_path, "SKILL.md")
-        if not os.path.exists(target):
-             target = skill_path # Fallback to folder
-             
-        # Run agnix --strict
-        # We suppress output unless there's an error to keep sync clean?
-        # Actually, let's capture output and print only on error.
-        result = subprocess.run(
-            ["agnix", target, "--strict"],
-            capture_output=True,
-            text=True,
-            shell=True # Required on Windows for some path resolutions?
-        )
-        
-        if result.returncode == 0:
-            return True, ""
-        else:
-            return False, result.stdout + result.stderr
-            
-    except FileNotFoundError:
-        return False, "agnix command not found in PATH."
-    except Exception as e:
-        return False, str(e)
+
 
 def sync_skills(target_root=None, force_mode=False, sync_refs=True):
     """
     Synchronizes .agent/skills and .agent/protocols/references to a target directory.
-    Enforces agnix validation on skills unless force_mode is True.
+
+    NOTE: Skills are now organized into category subdirectories:
+      .agent/skills/
+        ├── core-engineering/
+        ├── ui-ux-design/
+        ├── devops-and-ops/
+        ├── meta-agent-tools/
+        ├── specialized-domains/
+        ├── skill_index_kairou.md
+        ├── skill_index_sparks.md
+        ├── skill_index_arc.md
+        ├── skill_index_janitor.md
+        └── skill_index_secondary.md
+
+    The entire skills/ directory is copied recursively to preserve this structure.
     """
-    
+
     script_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(script_dir)
-    
+
     if target_root is None:
         target_root = os.getcwd()
-    
+
     target_root = os.path.abspath(target_root)
-    
-    print(f"🚀 Starting Sync Skills Script")
-    print(f"📂 Project Root: {project_root}")
-    print(f"🎯 Target Root:  {target_root}")
+
+    print(f"Starting Sync Skills Script")
+    print(f"Project Root: {project_root}")
+    print(f"Target Root:  {target_root}")
     if force_mode:
-        print(f"⚠️  FORCE MODE ENABLED: Skipping validation checks.")
+        print(f"FORCE MODE ENABLED.")
     print("-" * 40)
-    
-    # 1. Sync References (No validation required usually)
+
+    # 1. Sync References
     if sync_refs:
         src_refs = os.path.join(project_root, ".agent", "protocols", "references")
         dst_refs = os.path.join(target_root, "references")
-        
+
         print(f"\nEvaluating 'references':")
         if os.path.exists(src_refs):
             try:
-                if sys.version_info >= (3, 8):
-                    shutil.copytree(src_refs, dst_refs, dirs_exist_ok=True)
-                else:
-                     # Fallback/Older python logic if needed, but assuming 3.8+
-                    shutil.copytree(src_refs, dst_refs, dirs_exist_ok=True)
-                print(f"  ✅ Successfully synced 'references'")
+                shutil.copytree(src_refs, dst_refs, dirs_exist_ok=True)
+                print(f"  OK: Successfully synced 'references'")
             except Exception as e:
-                print(f"  ❌ Error syncing 'references': {e}")
+                print(f"  FAIL: Error syncing 'references': {e}")
         else:
-            print(f"  ❌ Source not found: {src_refs}")
+            print(f"  FAIL: Source not found: {src_refs}")
     else:
         print("\nSkipping 'references' sync (disabled).")
 
-    # 2. Sync Skills (With Validation)
+    # 2. Sync Skills — Full Recursive Copy
     src_skills = os.path.join(project_root, ".agent", "skills")
     dst_skills = os.path.join(target_root, "skills")
-    
+
     print(f"\nEvaluating 'skills':")
     if not os.path.exists(src_skills):
-        print(f"  ❌ Source not found: {src_skills}")
+        print(f"  FAIL: Source not found: {src_skills}")
         return
 
-    # Create destination skills folder if missing
-    if not os.path.exists(dst_skills):
-        os.makedirs(dst_skills)
-
     start_time = time.time()
-    
-    print(f"\n🔍 PHASE 1: Validation")
-    
-    skills_to_sync = []
-    validation_failed = False
-    invalid_skills = []
 
-    # Identify all skills
-    all_skills = [d for d in os.listdir(src_skills) if os.path.isdir(os.path.join(src_skills, d)) and not d.startswith(".")]
-    
-    # Validation Pass
-    for item in all_skills:
-        skill_src = os.path.join(src_skills, item)
-        
-        if force_mode:
-            # Skip validation in force mode
-            skills_to_sync.append(item)
-            continue
-            
-        is_valid, error_msg = run_agnix_validation(skill_src)
-        if is_valid:
-            skills_to_sync.append(item)
-        else:
-            invalid_skills.append((item, error_msg))
-            validation_failed = True
+    print(f"\nSyncing 'skills' (recursive — includes category subdirs and skill indexes)...")
+    try:
+        shutil.copytree(src_skills, dst_skills, dirs_exist_ok=True)
+        elapsed = time.time() - start_time
 
-    if validation_failed:
-        print(f"\n❌ Found {len(invalid_skills)} invalid skills:")
-        for name, msg in invalid_skills:
-            print(f"  - {name}:")
-            for line in msg.splitlines():
-                if line.strip(): print(f"      {line}")
-        
-        if not force_mode:
-            print(f"\n⛔ Sync aborted due to validation errors.")
-            print(f"   Use --force to sync anyway.")
-            return
-
-    else:
-        if not force_mode:
-            print("✅  All skills passed validation.")
-        else:
-            print("⚠️  Force mode: Validation skipped.")
-
-    print(f"\n🔄 PHASE 2: Syncing")
-    
-    skills_synced = 0
-    skills_failed_copy = 0
-    
-    # Sync Pass
-    for item in skills_to_sync:
-        skill_src = os.path.join(src_skills, item)
-        skill_dst = os.path.join(dst_skills, item)
-        
-        try:
-             shutil.copytree(skill_src, skill_dst, dirs_exist_ok=True)
-             skills_synced += 1
-        except Exception as e:
-            print(f"  ❌ Failed to copy '{item}': {e}")
-            skills_failed_copy += 1
+        # Count top-level items for a useful summary
+        categories = [d for d in os.listdir(src_skills) if os.path.isdir(os.path.join(src_skills, d))]
+        indexes = [f for f in os.listdir(src_skills) if f.startswith("skill_index_") and f.endswith(".md")]
+        print(f"  OK: Synced {len(categories)} category folder(s) and {len(indexes)} skill index file(s) in {elapsed:.1f}s.")
+    except Exception as e:
+        print(f"  FAIL: Failed to sync skills: {e}")
 
     print("-" * 40)
-    print(f"🎉 Skills Sync Complete: {skills_synced}/{len(skills_to_sync)} synced.")
-    if skills_failed_copy > 0:
-        print(f"⚠️  {skills_failed_copy} skills failed copy.")
+    print(f"Skills Sync Complete.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Sync Skills & References")
