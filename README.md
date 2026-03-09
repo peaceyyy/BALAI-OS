@@ -52,7 +52,7 @@ Secondary personas (Backend Specialist, DevOps Engineer, Game Developer, SEO Spe
 
 ## Getting Started
 
-### 1. Boot a New Project
+### 1. Boot this OS to a New Project
 
 ```bash
 python boot_agent.py "C:/Path/To/Your/Project"
@@ -135,7 +135,7 @@ The **cognitive guidelines** (`.agent/protocols/guidelines/`) were primarily har
 
 ### OpenSpec / SpecKit
 
-Several **secondary personas** — DevOps Engineer, Game Developer, Mobile Developer, SEO Specialist, Security Auditor, and QA Automation Engineer — were adapted from the **OpenSpec** project by the **SpecKit** team. These provided battle-tested behavioural contracts for specialist agents.
+Several **secondary personas** — DevOps Engineer, Game Developer, Mobile Developer, SEO Specialist, Security Auditor, and QA Automation Engineer — were adapted from the **OpenSpec** and GitHub's **Spec Kit** These provided battle-tested behavioural contracts for specialist agents.
 
 ### Community & Open-Source Skills
 
@@ -162,4 +162,4 @@ This project is open for personal use, forking, and adaptation. If you build on 
 ---
 
 _BALAI OS is a living system. It grows with every project, every guideline harvested, and every skill learned._
-_Ang inyong balay. Your agents' home._
+_—A simulated home for both dev and agent_

@@ -15,7 +15,6 @@ def sync_global_rules(target=None):
 
     # Source: The Single Source of Truth
     # Located in .agent/global_instructions.md relative to the project root
-    # script is in /scripts, so we go up one level to root, then into .agent
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     src_rules = os.path.join(base_dir, ".agent", "global_instructions.md")
     
