@@ -4,7 +4,68 @@ import shutil
 import argparse
 import sys
 
-def sync_workflows(project_root, target_selection=None, force_mode=False):
+
+LEGACY_TARGET_ALIASES = {
+    "inject-debugger": ["debug-deploy"],
+}
+
+
+def parse_frontmatter(content):
+    """Return (frontmatter_dict, body) for markdown content."""
+    fm_match = re.match(r'^---\s*\n(.*?)\n---\s*\n?', content, re.DOTALL)
+    if not fm_match:
+        return {}, content
+
+    frontmatter_text = fm_match.group(1)
+    body = content[fm_match.end():]
+    frontmatter = {}
+
+    for line in frontmatter_text.splitlines():
+        if ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        frontmatter[key.strip()] = value.strip()
+
+    return frontmatter, body
+
+
+def extract_source_description(content):
+    """Extract description from source frontmatter, inline blocks, or markdown header."""
+    source_fm, _ = parse_frontmatter(content)
+    if source_fm.get("description"):
+        return source_fm["description"].strip()
+
+    # Antigravity style often stores description in an inline metadata block:
+    # ---\n# description: ...\n# ---
+    block_match = re.search(r'^---\s*\n\s*description:\s*(.+?)\s*\n---\s*$', content, re.MULTILINE)
+    if block_match:
+        return block_match.group(1).strip()
+
+    desc_match = re.search(r'^##\s*description:\s*(.+?)\s*$', content, re.MULTILINE)
+    if desc_match:
+        return desc_match.group(1).strip()
+
+    # Last-resort fallback for loose formatting.
+    line_match = re.search(r'^\s*description:\s*(.+?)\s*$', content, re.MULTILINE)
+    if line_match:
+        return line_match.group(1).strip()
+
+    return None
+
+
+def clean_source_content(content):
+    """Remove source metadata wrappers while preserving workflow body."""
+    _, body = parse_frontmatter(content)
+
+    # Remove markdown description headers that should live in frontmatter.
+    body = re.sub(r'^##\s*description:\s*.*?$\n?', '', body, flags=re.MULTILINE)
+
+    # Remove repeated inline frontmatter-like description blocks if present.
+    body = re.sub(r'^---\s*\n\s*description:.*?\n---\s*\n', '', body, flags=re.MULTILINE)
+
+    return body.strip()
+
+def sync_workflows(project_root, target_selection=None, force_mode=False, dry_run=False):
     """
     Synchronizes Workflows to Global VS Code User Workflows and Antigravity Global Workflows.
     
@@ -57,10 +118,8 @@ def sync_workflows(project_root, target_selection=None, force_mode=False):
     # Validation function
     def validate_workflow(content, filename):
         # 1. Check description existence
-        if "description:" not in content:
-            # Check for ## description: format as fallback logic matches main loop
-            if not re.search(r'^##\s*description:', content, re.MULTILINE):
-                return False, "Missing 'description' field."
+        if not extract_source_description(content):
+            return False, "Missing description (expected source frontmatter, inline description block, or '## description:' header)."
         
         return True, ""
 
@@ -69,7 +128,7 @@ def sync_workflows(project_root, target_selection=None, force_mode=False):
     invalid_files = []
 
     # Pre-validation pass
-    for filename in os.listdir(workflow_dir):
+    for filename in sorted(os.listdir(workflow_dir)):
         if not filename.endswith(".md") or filename.startswith("archive"):
             continue
             
@@ -120,9 +179,11 @@ def sync_workflows(project_root, target_selection=None, force_mode=False):
         
         updated_files = set()
         count = 0
+        unchanged_count = 0
+        shrink_warnings = []
         
         # Process each source file
-        for filename in os.listdir(workflow_dir):
+        for filename in sorted(os.listdir(workflow_dir)):
             if not filename.endswith(".md") or filename.startswith("archive"):
                 continue
                 
@@ -136,84 +197,116 @@ def sync_workflows(project_root, target_selection=None, force_mode=False):
                 print(f"  ❌ Failed to read source {filename}: {e}")
                 continue
             
-            # Extract description from source
-            source_description = None
-            
-            # Try YAML frontmatter first
-            yaml_match = re.search(r'^---\s*\n.*?^description:\s*(.+?)\s*\n.*?^---\s*\n', source_content, re.MULTILINE | re.DOTALL)
-            if yaml_match:
-                source_description = yaml_match.group(1).strip()
-            
-            # Try markdown header format: ## description: ...
-            if not source_description:
-                desc_match = re.search(r'^##\s*description:\s*(.+?)$', source_content, re.MULTILINE)
-                if desc_match:
-                    source_description = desc_match.group(1).strip()
-            
-            # Clean source content: remove frontmatter and description headers
-            cleaned_content = source_content
-            
-            # Remove YAML frontmatter
-            cleaned_content = re.sub(r'^---\s*\n.*?^---\s*\n', '', cleaned_content, flags=re.MULTILINE | re.DOTALL)
-            
-            # Remove standalone description headers
-            cleaned_content = re.sub(r'^##\s*description:.*?$\n?', '', cleaned_content, flags=re.MULTILINE)
-            
-            # Remove description in triple-dash blocks
-            cleaned_content = re.sub(r'^---\s*\n\s*description:.*?\n---\s*\n', '', cleaned_content, flags=re.MULTILINE)
+            source_description = extract_source_description(source_content)
+            cleaned_content = clean_source_content(source_content)
+
+            # Guardrail: surface suspicious shrinkage early without blocking sync.
+            src_non_empty_lines = len([ln for ln in source_content.splitlines() if ln.strip()])
+            cleaned_non_empty_lines = len([ln for ln in cleaned_content.splitlines() if ln.strip()])
+            if src_non_empty_lines >= 20 and cleaned_non_empty_lines / max(src_non_empty_lines, 1) < 0.7:
+                shrink_warnings.append((filename, src_non_empty_lines, cleaned_non_empty_lines))
             
             # Target file path
             dst_filename = f"{base_name}{target_ext}"
             dst_path = os.path.join(target_dir, dst_filename)
+
+            alias_paths = []
+            for alias_name in LEGACY_TARGET_ALIASES.get(base_name, []):
+                alias_filename = f"{alias_name}{target_ext}"
+                alias_paths.append((alias_filename, os.path.join(target_dir, alias_filename)))
             
-            # Read existing target file to preserve frontmatter (argument-hint)
-            existing_argument_hint = None
+            # Read existing target file to preserve target-specific frontmatter fields.
+            existing_target_frontmatter = {}
+            metadata_source_path = None
             if os.path.exists(dst_path):
+                metadata_source_path = dst_path
+            else:
+                for _, alias_path in alias_paths:
+                    if os.path.exists(alias_path):
+                        metadata_source_path = alias_path
+                        break
+
+            if metadata_source_path:
                 try:
-                    with open(dst_path, 'r', encoding='utf-8') as f:
+                    with open(metadata_source_path, 'r', encoding='utf-8') as f:
                         existing_content = f.read()
-                    
-                    # Extract argument-hint from existing file
-                    hint_match = re.search(r'^argument-hint:\s*(.+?)$', existing_content, re.MULTILINE)
-                    if hint_match:
-                        existing_argument_hint = hint_match.group(1).strip()
+
+                    existing_target_frontmatter, _ = parse_frontmatter(existing_content)
                 except Exception:
                     pass # Ignore read errors on target, just overwrite
             
-            # Build new frontmatter
-            frontmatter_lines = [
-                "---",
-                f"name: {base_name}",
-                f"description: {source_description or base_name}",
-            ]
-            
-            if existing_argument_hint:
-                frontmatter_lines.append(f"argument-hint: {existing_argument_hint}")
+            # Build new frontmatter by preserving target keys except authoritative source keys.
+            merged_frontmatter = {
+                "name": base_name,
+                "description": source_description or base_name,
+            }
+
+            for key, value in existing_target_frontmatter.items():
+                if key in ("name", "description"):
+                    continue
+                merged_frontmatter[key] = value
+
+            frontmatter_lines = ["---"]
+            for key, value in merged_frontmatter.items():
+                frontmatter_lines.append(f"{key}: {value}")
             
             frontmatter_lines.append("---")
             frontmatter = "\n".join(frontmatter_lines)
             
             # Merge: frontmatter + cleaned content
             final_content = f"{frontmatter}\n\n{cleaned_content.strip()}\n"
+
+            existing_text = None
+            if os.path.exists(dst_path):
+                try:
+                    with open(dst_path, 'r', encoding='utf-8') as f:
+                        existing_text = f.read()
+                except Exception:
+                    existing_text = None
+
+            if existing_text == final_content:
+                updated_files.add(dst_filename)
+                unchanged_count += 1
+                continue
             
+            if dry_run:
+                updated_files.add(dst_filename)
+                count += 1
+                continue
+
             # Write to target
             try:
                 with open(dst_path, 'w', encoding='utf-8') as f:
                     f.write(final_content)
-                
+
                 updated_files.add(dst_filename)
                 count += 1
                 # print(f"  ✓ {dst_filename}") # Be less verbose
             except Exception as e:
                 print(f"  ❌ Failed to write {dst_filename}: {e}")
         
-        print(f"  ✨ Synced {count} workflows.")
+        action_word = "Would sync" if dry_run else "Synced"
+        print(f"  ✨ {action_word} {count} workflows ({unchanged_count} unchanged).")
+
+        if shrink_warnings:
+            print(f"  ⚠️  Detected {len(shrink_warnings)} potential source-cleaning shrink warnings:")
+            for fname, src_lines, cleaned_lines in shrink_warnings:
+                print(f"     - {fname}: source={src_lines} lines, cleaned={cleaned_lines} lines")
         
         # Report orphaned files
         orphaned_files = []
+        legacy_alias_filenames = set()
+        for source_name, aliases in LEGACY_TARGET_ALIASES.items():
+            # Only ignore aliases when the source workflow exists.
+            source_file = os.path.join(workflow_dir, f"{source_name}.md")
+            if not os.path.exists(source_file):
+                continue
+            for alias_name in aliases:
+                legacy_alias_filenames.add(f"{alias_name}{target_ext}")
+
         try:
-            for f in os.listdir(target_dir):
-                if f.endswith(target_ext) and f not in updated_files:
+            for f in sorted(os.listdir(target_dir)):
+                if f.endswith(target_ext) and f not in updated_files and f not in legacy_alias_filenames:
                     orphaned_files.append(f)
         except Exception:
             pass
@@ -236,6 +329,7 @@ if __name__ == "__main__":
     group.add_argument("--antigravity", action="store_true", help="Sync only to Antigravity global workflows")
     group.add_argument("--copilot", action="store_true", help="Sync only to VS Code Copilot workflows")
     parser.add_argument("--force", action="store_true", help="Force sync ignoring validation errors")
+    parser.add_argument("--dry-run", action="store_true", help="Preview changes without writing files")
     
     args = parser.parse_args()
     
@@ -245,7 +339,7 @@ if __name__ == "__main__":
     elif args.copilot:
         target_arg = "copilot"
         
-    success = sync_workflows(args.project_root, target_arg, args.force)
+    success = sync_workflows(args.project_root, target_arg, args.force, args.dry_run)
     
     print("\n" + "=" * 60)
     if success:
