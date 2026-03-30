@@ -57,6 +57,26 @@ Based on evidence, propose:
 - Check edge cases.
 - Ensure no regressions.
 
+### Step 6: Auto-Knowledge Write (Reflection Loop)
+
+> **[Autoregrate]** This step closes the learning loop. Execute after every debug session.
+
+**If fix SUCCEEDED:**
+1. Identify what category of bug this was (e.g., `null-safety`, `async-race`, `schema-mismatch`).
+2. Check if `.agent/knowledge/[bug-class]/` exists. If not, create the folder.
+3. Append a `known-fix-[YYYY-MM-DD].md` entry with:
+   - **Trigger**: What caused the bug
+   - **Symptom**: How it manifested
+   - **Root Cause**: The actual source
+   - **Fix Pattern**: The generalizable solution
+
+**If 3 strikes FAILED:**
+1. Create `.agent/knowledge/[bug-class]/open-bug-[YYYY-MM-DD].md` with:
+   - **Symptom**: Exact error
+   - **Attempted Fixes**: All 3 approaches tried
+   - **Status**: `UNRESOLVED — awaiting human judgment`
+   - **Next Steps**: Hypotheses for human to explore
+
 ---
 
 ## Output Format

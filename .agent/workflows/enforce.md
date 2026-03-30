@@ -52,6 +52,17 @@
 - **Test**: Run full suite with strict validation.
 - **Audit**: Check related code for similar patterns.
 
+### Step 5: Auto-Knowledge Write (Reflection Loop)
+
+> **[Autoregrate]** Captures the root-cause class so BALAI OS doesn't have to rediscover it.
+
+1. Name the **anti-pattern** that caused this bug (e.g., `defensive-try-except`, `type-coercion-bypass`, `test-accommodating-bug`).
+2. Append to `.agent/knowledge/anti-patterns/[anti-pattern-name].md`:
+   - **Anti-Pattern**: Name and description
+   - **How It Hides**: Why it evaded earlier review
+   - **Detection Heuristic**: Code smell / grep pattern to catch it next time
+   - **Correct Pattern**: What the code should look like
+
 ---
 
 ## Output
@@ -59,3 +70,4 @@
 - Functional fix
 - Strict validation checks
 - Updated tests (enforcing correctness)
+- Anti-pattern entry in `.agent/knowledge/anti-patterns/`

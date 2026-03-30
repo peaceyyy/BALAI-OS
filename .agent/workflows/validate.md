@@ -70,3 +70,20 @@
 
 - `/review-code` - To improve code quality before this step.
 - `/commit` - To finalize the work if passed.
+
+---
+
+## Step 5: Auto-Knowledge Write (Reflection Loop)
+
+> **[Autoregrate]** Fires after a PASS verdict. Writes success patterns back to the skill system.
+
+**If validation PASSED:**
+1. Identify what technique or pattern made this implementation clean (e.g., `service-layer-separation`, `optimistic-locking`, `schema-first design`).
+2. Check if a relevant SKILL.md exists in `.agent/skills/` for this domain.
+3. Append a `## Proven Pattern: [YYYY-MM-DD]` section to the SKILL.md with:
+   - **Context**: What kind of task this was
+   - **Approach**: The pattern that worked
+   - **Why it passed**: What made it spec-compliant and constitution-compliant
+
+**If validation FAILED:**
+- Instead of a success pattern, document the failure mode in `.agent/knowledge/` as a guard against repeating it.
