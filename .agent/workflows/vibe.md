@@ -34,6 +34,17 @@
 - **Load**: `anti-vibe-coding-checklist.md`.
 - **Check**: No generic blue, inconsistent fonts, or bad contrast.
 
+### Step 4: Ship (Deploy to Cloud Run)
+
+> **Pro-Tip**: Use your "Build with AI" gcloud credits!
+
+- **Execute**: Deploy the project to Google Cloud Run directly from source.
+- **Command**:
+  ```bash
+  cmd /c gcloud run deploy <service-name> --source . --region us-central1 --allow-unauthenticated & REM \
+  ```
+- **Validate**: Open the deployed URL provided by Cloud Run to verify the live vibes.
+
 ---
 
 ## Related
