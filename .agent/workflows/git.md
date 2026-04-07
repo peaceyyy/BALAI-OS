@@ -13,6 +13,7 @@ description: Version control management helper
 
 ## Workflow
 
+// turbo
 1.  **Status Check**: The agent will look at your current `git status`.
 2.  **Strategy**: It will suggest `micro-commits` or `scrambled-eggs` squashing.
 3.  **Execution**: It will guide you through the commands.

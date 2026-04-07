@@ -134,6 +134,59 @@ One sentence: What are we building/fixing?
 
 ---
 
+## Decision Elicitation (Blocking Gates in the Plan)
+
+> Full spec: `.agent/protocols/guidelines/21-decision-elicitation.md`
+
+Before implementing a phase that has unresolved decisions, **insert a decision block inline** — immediately above the tasks it affects.
+
+### MCQ Block (Technical Decisions)
+
+Use for bounded choices with clear trade-off profiles (e.g., DB engine, auth strategy, rendering model).
+
+```
+> [!IMPORTANT]
+> **[Decision Label]** — *Choose one.*
+>
+> - A) **[Option]** — [Why it's a viable candidate]
+> - B) **[Option]** — [Why it's a viable candidate]
+> - C) **[Option]** — [Why it's a viable candidate]
+>
+> ❓ *Kairou's lean: Option [X] — [architectural reason].*
+```
+
+### Open-Ended Block (Contextual / Experiential Decisions)
+
+Use for decisions that depend on user knowledge, team conventions, or existing infrastructure.
+
+```
+> [!NOTE]
+> **[Decision Label]** — *Your context shapes the answer here.*
+>
+> [Framing — what is Kairou trying to understand?]
+>
+> ❓ *Example answers: "[A]" / "[B]" / "No preference"*
+```
+
+### Plan Status Annotation (Header)
+
+Every plan artifact with pending decisions must have this at the top:
+
+```
+> [!WARNING]
+> **Plan Status: PENDING DECISIONS** — X questions require your input before implementation begins.
+```
+
+Change to `[!TIP] Plan Status: READY` once all decisions are answered.
+
+**Rules:**
+- Max 3 decision blocks per phase. Collapse minor ones into a table.
+- MCQ: always 2–4 options. Always include Kairou's lean.
+- Open-ended: always include example answers.
+- Decisions go BEFORE the tasks that depend on them, not at the end.
+
+---
+
 ## Best Practices (Quick Reference)
 
 1. **Start with goal** - What are we building/fixing?

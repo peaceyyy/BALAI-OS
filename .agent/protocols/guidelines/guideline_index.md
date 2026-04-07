@@ -42,6 +42,12 @@ _Protocols for agent safety, token limits, and hallucination prevention._
 - `15-container-sandboxing.md` — Use when executing unknown code, scripts, or testing potentially destructive terminal commands.
 - `04-anti-hallucination.md` — Use for critical tasks where assumptions must be verified strictly by facts and codebase reality.
 
+## 📋 Planning & Decision Making
+
+_Structured techniques for capturing user decisions during the planning phase._
+
+- `21-decision-elicitation.md` — Use during Kairou planning whenever there are unresolved architectural, library, or structural decisions. MCQ for technical choices, open-ended for contextual ones.
+
 ## 🔬 Research, Flow & Vibe Engineering
 
 _Advanced methodologies for rapid iteration, feeling out UI, and deep dives._

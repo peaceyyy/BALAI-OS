@@ -17,7 +17,9 @@
 
 ### Step 1: Check Functional Correctness
 
+// turbo
 - **Compile**: `npm run build` / `compile`
+// turbo
 - **Test**: `npm test` (or relevant suite)
 - **Spec Check**: Does feature X exist as defined in `docs/project_specification.md`?
 

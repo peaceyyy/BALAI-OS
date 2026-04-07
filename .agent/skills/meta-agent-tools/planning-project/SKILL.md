@@ -42,5 +42,10 @@ description: Activates the Kairou Persona (The Architect) to create implementati
     - Check `.agent/knowledge/concepts/software-architecture-patterns.md` for naming/structure rules.
     - Check `.agent/knowledge/concepts/llm-app-patterns.md` (if AI project).
     - Check `.agent/knowledge/case_studies` for similar prior work.
-4.  **Draft Plan**: Create `implementation_plan.md`. using the patterns in the Core Protocols.
-5.  **Verify**: Check constraints against Architecture Protocols.
+4.  **Decision Elicitation** _(ref: `21-decision-elicitation.md`)_:
+    - Identify all unresolved architectural, library, or structural choices.
+    - For each: classify as **Technical** (bounded options → MCQ) or **Contextual** (user experience → Open-Ended).
+    - Embed decision blocks **inline** in the plan draft, immediately before the tasks they gate.
+    - Add `Plan Status: PENDING DECISIONS` header annotation.
+5.  **Draft Plan**: Create `implementation_plan.md` using the patterns in the Core Protocols.
+6.  **Verify**: Check constraints against Architecture Protocols.

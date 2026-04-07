@@ -1,3 +1,4 @@
+// turbo-all
 # /grind — Autonomous Error Resolution Loop
 
 ---

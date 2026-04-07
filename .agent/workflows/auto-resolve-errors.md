@@ -2,6 +2,8 @@
 description: Metric-driven loop that iterates on code to pass a validation command, concluding with an educational debrief
 ---
 
+// turbo-all
+
 # /auto-resolve-errors — Autonomous Error Resolution & Tutor Loop
 
 ---
