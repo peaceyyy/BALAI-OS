@@ -21,7 +21,7 @@
 
 - `.agent/personas/CONSTITUTION.md` (Constitutional Law).
 - `docs/project_specification.md` (The "Why").
-- `.balai/roadmap.md` (The "What").
+- `.docs/roadmap.md` (The "What").
 - `.agent/protocols/references/llms.txt` (External Knowledge Index).
 
 ### Step 2: Check Dependencies
